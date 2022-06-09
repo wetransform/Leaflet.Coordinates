@@ -208,7 +208,7 @@ L.Control.Coordinates = L.Control.extend({
 
 				var container = L.DomUtil.create("div", "");
 				var label = L.DomUtil.create("div", "", container);
-				label.innerHTML = this._ordinateLabel(ll);
+				label.innerHTML = this._createCoordinateLabel(ll);
 
 				var close = L.DomUtil.create("a", "", container);
 				close.innerHTML = "Remove";
