@@ -39,6 +39,7 @@ L.Control.Coordinates = L.Control.extend({
 		//label containers
 		this._labelcontainer = L.DomUtil.create("div", "uiElement label", container);
 		this._label = L.DomUtil.create("span", "labelFirst", this._labelcontainer);
+		this._label.innerHTML = "<span style='font-size: 11px; font-style: italic'>Coordinates are displayed here</span>"
 
 
 		//input containers
