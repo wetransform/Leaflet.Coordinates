@@ -10,8 +10,8 @@ L.Control.Coordinates = L.Control.extend({
 		//decimalseperator used if not using DMS or labelFormatter functions
 		decimalSeperator: ".",
 		//label templates for usage if no labelFormatter function is defined
-		labelTemplateLat: "Lat: {y}",
-		labelTemplateLng: "Lng: {x}",
+		labelTemplateLat: "Latitude: {y}",
+		labelTemplateLng: "Longitude: {x}",
 		//label formatter functions
 		labelFormatterLat: undefined,
 		labelFormatterLng: undefined,
@@ -39,6 +39,8 @@ L.Control.Coordinates = L.Control.extend({
 		//label containers
 		this._labelcontainer = L.DomUtil.create("div", "uiElement label", container);
 		this._label = L.DomUtil.create("span", "labelFirst", this._labelcontainer);
+
+		// setup a placeholder, so it would not be empty at first
 		this._label.innerHTML = "<span style='font-size: 11px; font-style: italic'>Coordinates are displayed here</span>"
 
 
@@ -62,6 +64,10 @@ L.Control.Coordinates = L.Control.extend({
 		L.DomEvent.on(this._inputX, 'keyup', this._handleKeypress, this);
 		L.DomEvent.on(this._inputY, 'keyup', this._handleKeypress, this);
 
+		// if click is inside the control, don't propagate to other map elements
+		L.DomEvent.addListener(this._container, "click", L.DomEvent.stopPropagation);
+		L.DomEvent.addListener(this._container, "dblclick", L.DomEvent.stopPropagation);
+
 		//connect to mouseevents
 		map.on("mousemove", this._update, this);
 		map.on('dragstart', this.collapse, this);
@@ -69,7 +75,7 @@ L.Control.Coordinates = L.Control.extend({
 		map.whenReady(this._update, this);
 
 		this._showsCoordinates = true;
-		//wether or not to show inputs on click
+		//whether or not to show inputs on click
 		if (options.enableUserInput) {
 			L.DomEvent.addListener(this._container, "click", this._switchUI, this);
 		}
